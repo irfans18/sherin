@@ -12,6 +12,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    const PESERTA = 0;
+    const NARASUMBER = 1;
+    const ADMIN = 2;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,6 +24,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'nrp',
+        'role',
         'password',
     ];
 
@@ -41,4 +47,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $appends = [
+        'role_name',
+    ];
+
+    public function getRoleNameAttribute()
+    {
+        return $this->status == self::PESERTA ? 'Peserta' : 
+            ($this->status == self::NARASUMBER ? 'Narasumber' : 'Admin');
+    }
+
+    public function tokens()
+    {
+        return $this->hasMany(Token::class);
+    }
+
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
+    }
+
+    public function group()
+    {
+        return $this->hasOneThrough(Group::class, GroupMember::class);
+    }
 }
