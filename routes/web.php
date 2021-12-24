@@ -25,6 +25,10 @@ Route::get('/narasumber', function () {
     return view('narasumber');
 });
 
+Route::get('/narasumber-token-detail', function () {
+    return view('narasumber-token-detail');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

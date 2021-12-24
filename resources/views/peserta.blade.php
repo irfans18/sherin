@@ -17,7 +17,7 @@
         </div>
     </div> --}}
 
-    <div class="py-10">
+    <div class="pt-12 pb-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 gap-5 mt-2 sm:grid-cols-2 lg:grid-cols-2">
                 <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2">
@@ -80,7 +80,7 @@
         </div>
     </div>
 
-    <div class="py-10">
+    <div class="pb-12 pt-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h3 class="mt-6 text-xl">Daftar Token</h3>
             <div class="flex flex-col mt-6">
