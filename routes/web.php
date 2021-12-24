@@ -21,8 +21,12 @@ Route::get('/peserta', function () {
     return view('peserta');
 });
 
+Route::get('/narasumber', function () {
+    return view('narasumber');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
