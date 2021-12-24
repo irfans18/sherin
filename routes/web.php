@@ -29,6 +29,26 @@ Route::get('/narasumber-token-detail', function () {
     return view('narasumber-token-detail');
 });
 
+Route::get('/admin', function () {
+    return view('admin');
+});
+
+Route::get('/admin-narasumber', function () {
+    return view('admin-narasumber');
+});
+
+Route::get('/admin-peserta', function () {
+    return view('admin-peserta');
+});
+
+Route::get('/admin-kelompok', function () {
+    return view('admin-kelompok');
+});
+
+Route::get('/admin-detail-kelompok', function () {
+    return view('admin-detail-kelompok');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
