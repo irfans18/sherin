@@ -19,6 +19,13 @@
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             </div>
 
+            <!-- NRP -->
+            <div>
+                <x-label for="nrp" :value="__('NRP')" />
+
+                <x-input id="nrp" class="block mt-1 w-full" type="text" name="nrp" :value="old('nrp')" required autofocus />
+            </div>
+
             <!-- Email Address -->
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />
@@ -44,6 +51,14 @@
                                 type="password"
                                 name="password_confirmation" required />
             </div>
+            <div class="mt-4">
+                <label>Nama</label>
+                <select class="form-control js-example-basic-single" name="grup" id="exampleFormControlSelect1">
+                    @foreach ($grups as $a)
+                    <option value={{$a->id}}>{{$a->name}} - {{$a->kambing1}} dan {{$a->kambing2}}</option>
+                    @endforeach
+                </select>
+            </div>
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
@@ -57,3 +72,12 @@
         </form>
     </x-auth-card>
 </x-guest-layout>
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{{-- // In your Javascript (external .js resource or <script> tag) --}}
+    <script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
+</script>
+@endsection
