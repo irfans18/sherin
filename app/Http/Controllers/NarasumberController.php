@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Request as ModelsRequest;
 use App\Models\Token;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +15,7 @@ class NarasumberController extends Controller
       $token = $this->getTokenHistory();
       $own_token = count($token);
       $total_token = $this->getTotalToken();
-      $token_acc = $this->countApprovedToken($token);
+      $token_acc = $this->countAllApprovedToken($token);
       $token_deny = $this->countDeniedToken($token);
       // dd($token);
       return view('narasumber',[
@@ -26,36 +27,99 @@ class NarasumberController extends Controller
                ]);
    }
 
+
+   public function getTokenDetail($token_id){
+      $token = Token::find($token_id);
+      $token_code = $token['token_code'];
+      $requests = $this->getTokenRequest($token_id);
+      $total_request = count($requests);
+      $request_acc = $this->countApprovedRequest($requests);
+      $request_deny = $this->countDeniedRequest($requests);
+      // dd($requests);
+      return view('narasumber-token-detail',[
+         "requests" => $requests,
+         "total_request" => $total_request,
+         "request_acc" => $request_acc,
+         "request_deny" => $request_deny,
+         "token_code" => $token_code,
+      ]);
+   }
+
+   private function countDeniedRequest($request){
+      $count = 0;
+
+      foreach($request as $row){
+         if($row['status'] == 2){
+            $count++;
+         }
+      }
+      // dd($approved_token);
+      return $count;
+   }
+
+   private function countApprovedRequest($request){
+      $count = 0;
+
+      foreach($request as $row){
+         if($row['status'] == 1){
+            $count++;
+         }
+      }
+      // dd($approved_token);
+      return $count;
+   }
+
    private function countDeniedToken($token){
       $req = ModelsRequest::where('status',2)->get()->toArray();
       // dd($req);
-      $approved_token = 0;
+      $count = 0;
 
       foreach($token as $row){
          foreach($req as $row2){
             if($row['id'] == $row2['token_id']){
-               $approved_token++;
+               $count++;
             }
          }
       }
-      // dd($approved_token);
-      return $approved_token;
+      // dd($count);
+      return $count;
    }
 
-   private function countApprovedToken($token){
+   private function getTokenRequest($id){
+      $req = ModelsRequest::where('token_id', $id)->get()->toArray();
+      $user_req = DB::table('users')
+               ->selectRaw('users.name, requests.user_id')
+               ->Join('requests','users.id','=','requests.user_id')
+               ->where('requests.token_id', $id)
+               ->get()->toArray();              
+
+      for($i=0; $i < count($req); $i++){
+         for($j=0; $j < count($user_req); $j++){
+            if($req[$i]['user_id'] == $user_req[$j]->user_id){
+               $req[$i]['username'] = $user_req[$j]->name;
+               // var_dump($row['token_code'], $row2->token_code);
+            }
+         }
+      }
+
+      // dd($req);
+      return $req;
+   }
+
+   private function countAllApprovedToken($token){
       $req = ModelsRequest::where('status',1)->get()->toArray();
       // dd($req);
-      $approved_token = 0;
+      $count = 0;
 
       foreach($token as $row){
          foreach($req as $row2){
             if($row['id'] == $row2['token_id']){
-               $approved_token++;
+               $count++;
             }
          }
       }
-      // dd($approved_token);
-      return $approved_token;
+      // dd($count);
+      return $count;
    }
 
    private function getTotalToken(){
@@ -74,11 +138,6 @@ class NarasumberController extends Controller
                   ->groupBy('tokens.token_code')
                   ->get()->toArray();
      
-      $requests = [];
-      
-      foreach ($req as $row){
-         $requests[$row->token_code] = $row->request;
-      }
 
       for($i=0; $i < count($token); $i++){
          for($j=0; $j < count($req); $j++){

@@ -129,7 +129,7 @@
                                        </td>
                                        <td class="px-6 py-4 whitespace-nowrap">
                                           {{-- <button class="px-2 py-1 bg-purple-400 text-sm rounded-md text-white" onclick="copy( {{ $row['token_code'] }} )">Copy</button> --}}
-                                          <button class="px-2 py-1 bg-blue-400 text-sm rounded-md text-white">Detail</button>
+                                          <a href=" /narasumber/{{$row['id']}}/detail " class="px-2 py-1 bg-blue-400 text-sm rounded-md text-white">Detail</a>
                                           {{-- <button class="px-2 py-1 bg-red-400 text-sm rounded-md text-white">Hapus</button> --}}
                                        </td>
                                     </tr>
