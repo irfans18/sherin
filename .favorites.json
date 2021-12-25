@@ -1,0 +1,34 @@
+[
+    {
+        "type": "Directory",
+        "name": "/Applications/XAMPP/xamppfiles/htdocs/breeze/app/Http/Controllers",
+        "parent_id": null,
+        "workspaceRoot": "/Applications/XAMPP/xamppfiles/htdocs/breeze",
+        "workspacePath": "app/Http/Controllers",
+        "id": "lR9rQAgf5BPMv0xU"
+    },
+    {
+        "type": "Directory",
+        "name": "/Applications/XAMPP/xamppfiles/htdocs/breeze/app/Models",
+        "parent_id": null,
+        "workspaceRoot": "/Applications/XAMPP/xamppfiles/htdocs/breeze",
+        "workspacePath": "app/Models",
+        "id": "BIhdDUAkfnxNZ721"
+    },
+    {
+        "type": "Directory",
+        "name": "/Applications/XAMPP/xamppfiles/htdocs/breeze/resources/views",
+        "parent_id": null,
+        "workspaceRoot": "/Applications/XAMPP/xamppfiles/htdocs/breeze",
+        "workspacePath": "resources/views",
+        "id": "aLxozndO7E6F4W3s"
+    },
+    {
+        "type": "File",
+        "name": "/Applications/XAMPP/xamppfiles/htdocs/breeze/routes/web.php",
+        "parent_id": null,
+        "workspaceRoot": "/Applications/XAMPP/xamppfiles/htdocs/breeze",
+        "workspacePath": "routes/web.php",
+        "id": "QIkON6fe0atJhc1K"
+    }
+]
