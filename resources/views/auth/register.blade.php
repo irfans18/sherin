@@ -20,7 +20,7 @@
             </div>
 
             <!-- NRP -->
-            <div>
+            <div class="mt-4">
                 <x-label for="nrp" :value="__('NRP')" />
 
                 <x-input id="nrp" class="block mt-1 w-full" type="text" name="nrp" :value="old('nrp')" required autofocus />
@@ -52,8 +52,9 @@
                                 name="password_confirmation" required />
             </div>
             <div class="mt-4">
-                <label>Nama</label>
-                <select class="form-control js-example-basic-single" name="grup" id="exampleFormControlSelect1">
+                <x-label for="exampleFormControlSelect1" :value="__('Nama Kelompok')" />
+                <!-- <label>Nama</label> -->
+                <select class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="grup" id="exampleFormControlSelect1">
                     @foreach ($grups as $a)
                     <option value={{$a->id}}>{{$a->name}} - {{$a->kambing1}} dan {{$a->kambing2}}</option>
                     @endforeach
