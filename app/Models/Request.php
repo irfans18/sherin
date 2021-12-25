@@ -35,7 +35,7 @@ class Request extends Model
 
     public function getStatusNameAttribute()
     {
-        return $this->status == self::DENY ? 'Menunggu' : 
+        return $this->status == self::PENDING ? 'Menunggu' : 
             ($this->status == self::ACCEPT ? 'Disetujui' : 'Ditolak');
     }
 }

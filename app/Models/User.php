@@ -54,8 +54,8 @@ class User extends Authenticatable
 
     public function getRoleNameAttribute()
     {
-        return $this->status == self::PESERTA ? 'Peserta' : 
-            ($this->status == self::NARASUMBER ? 'Narasumber' : 'Admin');
+        return $this->role == self::PESERTA ? 'Peserta' : 
+            ($this->role == self::NARASUMBER ? 'Narasumber' : 'Admin');
     }
 
     public function tokens()

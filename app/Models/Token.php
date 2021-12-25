@@ -14,7 +14,7 @@ class Token extends Model
     protected $fillable = [
         'user_id',
         'token_code',
-        'expired_date'
+        'expired_time'
     ];
 
     public static function generate()
