@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\DB;
 
 class NarasumberController extends Controller
 {
+
    public function index(){
+      $username = $this->getUsername();
       $token = $this->getTokenHistory();
       $own_token = count($token);
       $total_token = $this->getTotalToken();
@@ -19,6 +21,7 @@ class NarasumberController extends Controller
       $token_deny = $this->countDeniedToken($token);
       // dd($token);
       return view('narasumber',[
+                  'username' => $username,
                   'token' => $token,
                   'own_token' => $own_token,
                   'total_token' => $total_token,
@@ -29,6 +32,7 @@ class NarasumberController extends Controller
 
 
    public function getTokenDetail($token_id){
+      $username = $this->getUsername();
       $token = Token::find($token_id);
       $token_code = $token['token_code'];
       $requests = $this->getTokenRequest($token_id);
@@ -37,12 +41,17 @@ class NarasumberController extends Controller
       $request_deny = $this->countDeniedRequest($requests);
       // dd($requests);
       return view('narasumber-token-detail',[
+         "username" => $username,
          "requests" => $requests,
          "total_request" => $total_request,
          "request_acc" => $request_acc,
          "request_deny" => $request_deny,
          "token_code" => $token_code,
       ]);
+   }
+
+   private function getUsername(){
+      return Auth::user()->name;
    }
 
    private function countDeniedRequest($request){
