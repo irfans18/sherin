@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\GroupMember;
+use App\Models\Group;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+// Use Auth;
 
 class RegisteredUserController extends Controller
 {
@@ -20,6 +23,10 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
+        $grups = Group::all();
+        view()->share([
+            'grups' => $grups
+        ]);
         return view('auth.register');
     }
 
@@ -37,13 +44,20 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'nrp' => ['required', 'string','max:10', 'unique:users'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'nrp' => $request->nrp,
             'password' => Hash::make($request->password),
         ]);
+
+        $group_member = new GroupMember();
+        $group_member->user_id = $user->id;
+        $group_member->group_id = $request->grup;
+        $group_member->save();
 
         event(new Registered($user));
 
