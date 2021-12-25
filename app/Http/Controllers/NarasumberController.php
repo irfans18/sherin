@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Request as ModelsRequest;
 use App\Models\Token;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,8 +17,8 @@ class NarasumberController extends Controller
       $own_token = count($token);
       $total_token = $this->getTotalToken();
       $token_acc = $this->countAllApprovedToken($token);
-      $token_deny = $this->countDeniedToken($token);
-      // dd($token);
+      $token_deny = $this->countAllDeniedToken($token);
+      // dd($token_deny);
       return view('narasumber',[
                   'username' => $username,
                   'token' => $token,
@@ -78,56 +77,66 @@ class NarasumberController extends Controller
       return $count;
    }
 
-   private function countDeniedToken($token){
-      $req = ModelsRequest::where('status',2)->get()->toArray();
-      // dd($req);
+   private function countAllDeniedToken($token){
       $count = 0;
+      $req = ModelsRequest::where('status',2)->get();
+      if($req != null){
+         $req = $req->toArray();
 
-      foreach($token as $row){
-         foreach($req as $row2){
-            if($row['id'] == $row2['token_id']){
-               $count++;
+         foreach($token as $row){
+            foreach($req as $row2){
+               if($row['id'] == $row2['token_id']){
+                  $count++;
+               }
             }
          }
       }
+
       // dd($count);
       return $count;
    }
 
    private function getTokenRequest($id){
-      $req = ModelsRequest::where('token_id', $id)->get()->toArray();
-      $user_req = DB::table('users')
-               ->selectRaw('users.name, requests.user_id')
-               ->Join('requests','users.id','=','requests.user_id')
-               ->where('requests.token_id', $id)
-               ->get()->toArray();              
+      $req = ModelsRequest::where('token_id', $id)->get();
+      if($req != null) {
+         $req = $req->toArray();
+         $user_req = DB::table('users')
+                  ->selectRaw('users.name, requests.user_id')
+                  ->Join('requests','users.id','=','requests.user_id')
+                  ->where('requests.token_id', $id)
+                  ->get();    
+         if($user_req != null){
+            $user_req = $user_req->toArray(); 
 
-      for($i=0; $i < count($req); $i++){
-         for($j=0; $j < count($user_req); $j++){
-            if($req[$i]['user_id'] == $user_req[$j]->user_id){
-               $req[$i]['username'] = $user_req[$j]->name;
-               // var_dump($row['token_code'], $row2->token_code);
+            for($i=0; $i < count($req); $i++){
+               for($j=0; $j < count($user_req); $j++){
+                  if($req[$i]['user_id'] == $user_req[$j]->user_id){
+                     $req[$i]['username'] = $user_req[$j]->name;
+                     // var_dump($row['token_code'], $row2->token_code);
+                  }
+               }
             }
          }
-      }
+      }         
 
       // dd($req);
       return $req;
    }
 
    private function countAllApprovedToken($token){
-      $req = ModelsRequest::where('status',1)->get()->toArray();
-      // dd($req);
       $count = 0;
+      $req = ModelsRequest::where('status',1)->get();
+      if($req != null){
+         $req = $req->toArray();
 
-      foreach($token as $row){
-         foreach($req as $row2){
-            if($row['id'] == $row2['token_id']){
-               $count++;
+         foreach($token as $row){
+            foreach($req as $row2){
+               if($row['id'] == $row2['token_id']){
+                  $count++;
+               }
             }
          }
       }
-      // dd($count);
       return $count;
    }
 
@@ -139,30 +148,40 @@ class NarasumberController extends Controller
    private function getTokenHistory(){
       $token = Token::where('user_id', Auth::user()->id)
                      ->orderBy('created_at', 'desc')
-                     ->get()->toArray();
-      $req = DB::table('tokens')
-                  // ->select("tokens.code", "tokens.id", DB::raw("COUNT(requests.user_id) as requests"))
-                  ->selectRaw('tokens.token_code, count(requests.user_id) as request')
-                  ->Join('requests','tokens.id','=','requests.token_id')
-                  ->groupBy('tokens.token_code')
-                  ->get()->toArray();
-     
+                     ->get();
+      $req_check = ModelsRequest::all()->toArray();
+      // dd(($req_check == null));
+      if($req_check != null){
+         if($token != null){
+            $token = $token->toArray();
 
-      for($i=0; $i < count($token); $i++){
-         for($j=0; $j < count($req); $j++){
-            if($token[$i]['token_code'] == $req[$j]->token_code){
-               $token[$i]['requests'] = $req[$j]->request;
-               // var_dump($row['token_code'], $row2->token_code);
-            }else{
-               $token[$i]['requests'] = 0;
+            $req = DB::table('tokens')
+                        // ->select("tokens.code", "tokens.id", DB::raw("COUNT(requests.user_id) as requests"))
+                        ->selectRaw('tokens.token_code, count(requests.user_id) as request')
+                        ->Join('requests','tokens.id','=','requests.token_id')
+                        ->groupBy('tokens.token_code')
+                        ->get();
+            if($req != null){
+               $req = $req->toArray();
+
+               for($i=0; $i < count($token); $i++){
+                  for($j=0; $j < count($req); $j++){
+                     if($token[$i]['token_code'] == $req[$j]->token_code){
+                        $token[$i]['requests'] = $req[$j]->request;
+                        // var_dump($row['token_code'], $row2->token_code);
+                     }else{
+                        $token[$i]['requests'] = 0;
+                     }
+                  }
+               }
             }
          }
+      }else{
+         for($i=0; $i < count($token); $i++){
+            $token[$i]['requests'] = 0;
+         }
       }
+
       return $token;
    }
 }
-
-// SELECT tokens.*, COUNT(requests.user_id)
-// FROM tokens
-// JOIN requests ON requests.token_id=tokens.id
-// GROUP BY tokens.token_code;
