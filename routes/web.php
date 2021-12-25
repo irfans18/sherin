@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\NarasumberController;
+use App\Http\Controllers\RequestController;
+use App\Http\Controllers\TokenController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('narasumber/generate-token', [TokenController::class, 'generate'])->name('generate-token');
+// Route::get('/narasumber', [TokenController::class, 'generate']);
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -21,13 +27,14 @@ Route::get('/peserta', function () {
     return view('peserta');
 });
 
-Route::get('/narasumber', function () {
-    return view('narasumber');
-});
+Route::get('/narasumber', [NarasumberController::class, 'index']);
+Route::get('/narasumber/{id}/detail', [NarasumberController::class, 'getTokenDetail']);
+Route::get('/narasumber/{token_id}/accept/{id}', [RequestController::class, 'accept']);
+Route::get('/narasumber/{token_id}/deny/{id}', [RequestController::class, 'deny']);
 
-Route::get('/narasumber-token-detail', function () {
-    return view('narasumber-token-detail');
-});
+// Route::get('/narasumber-token-detail', function () {
+//     return view('narasumber-token-detail');
+// });
 
 Route::get('/admin', function () {
     return view('admin');
