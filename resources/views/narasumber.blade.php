@@ -2,6 +2,8 @@
 {{-- {{ dd($token[0]['expired_time']) }} --}}
 {{-- {{ dd( (new DateTime())->format('Y-m-d H:i:s') ) }} --}}
 {{-- {{ dd($token, $requests) }} --}}
+{{-- {{ dd($own_token) }} --}}
+
 
 <x-app-layout>
     <x-slot name="header">
@@ -22,7 +24,13 @@
                         <div class="p-10 bg-gray-200 rounded-md"></div>
                     </div>
                     <div>
-                        <span class="inline-block px-2 text-sm text-white bg-green-300 rounded"> {{ round((float)($own_token/$total_token) * 100 ) . '%' }} </span>
+                        <span class="inline-block px-2 text-sm text-white bg-green-300 rounded"> 
+                           @if ( $total_token > 0 )
+                              {{ round((float)($own_token/$total_token) * 100 ) . '%' }} 
+                           @else
+                              {{ round((float)($own_token/1) * 100 ) . '%' }} 
+                           @endif
+                        </span>
                         <span>dari {{ $total_token }}</span>
                     </div>
                 </div>
@@ -35,7 +43,13 @@
                         <div class="p-10 bg-gray-200 rounded-md"></div>
                     </div>
                     <div>
-                        <span class="inline-block px-2 text-sm text-white bg-green-300 rounded"> {{ round((float)($token_acc/$own_token) * 100 ) . '%' }} </span>
+                        <span class="inline-block px-2 text-sm text-white bg-green-300 rounded"> 
+                           @if ( $own_token > 0 )
+                              {{ round((float)($token_acc/$own_token) * 100 ) . '%' }} 
+                           @else
+                              {{ round((float)($token_acc/1) * 100 ) . '%' }} 
+                           @endif
+                        </span>
                         <span>dari {{ $own_token }}</span>
                     </div>
                 </div>
@@ -48,7 +62,13 @@
                         <div class="p-10 bg-gray-200 rounded-md"></div>
                     </div>
                     <div>
-                        <span class="inline-block px-2 text-sm text-white bg-red-300 rounded"> {{ round((float)($token_deny/$own_token) * 100 ) . '%' }} </span>
+                        <span class="inline-block px-2 text-sm text-white bg-red-300 rounded"> 
+                           @if ( $own_token > 0 )
+                              {{ round((float)($token_deny/$own_token) * 100 ) . '%' }} 
+                           @else
+                              {{ round((float)($token_deny/1) * 100 ) . '%' }} 
+                           @endif
+                        </span>
                         <span>dari {{ $own_token }}</span>
                     </div>
                 </div>
