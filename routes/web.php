@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/narasumber', [TokenController::class, 'generate']);
 
 Route::get('/', function () {
-   return view('welcome');
+    return view('landing');
 });
 
 Route::get('/peserta', function () {
@@ -42,23 +42,23 @@ Route::get('/narasumber/{token_id}/deny/{id}', [RequestController::class, 'deny'
 
 Route::get('/admin', function () {
     return view('admin');
-});
+})->name('admin');
 
 Route::get('/admin-narasumber', function () {
     return view('admin-narasumber');
-});
+})->name('admin-narasumber');
 
 Route::get('/admin-peserta', function () {
     return view('admin-peserta');
-});
+})->name('admin-peserta');
 
 Route::get('/admin-kelompok', function () {
     return view('admin-kelompok');
-});
+})->name('admin-kelompok');
 
 Route::get('/admin-detail-kelompok', function () {
     return view('admin-detail-kelompok');
-});
+})->name('admin-detail-kelompok');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
