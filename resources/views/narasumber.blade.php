@@ -24,52 +24,53 @@
                         <div class="p-10 bg-gray-200 rounded-md"></div>
                     </div>
                     <div>
-                        <span class="inline-block px-2 text-sm text-white bg-green-300 rounded"> 
-                           @if ( $total_token > 0 )
+                        <span class="inline-block px-2 text-sm text-white bg-yellow-300 rounded"> 
+                           {{ $waiting_request }} requests
+                           {{-- @if ( $total_token > 0 )
                               {{ round((float)($own_token/$total_token) * 100 ) . '%' }} 
                            @else
                               {{ round((float)($own_token/1) * 100 ) . '%' }} 
-                           @endif
+                           @endif --}}
                         </span>
-                        <span>dari {{ $total_token }}</span>
+                        <span>belum ditanggapi</span>
                     </div>
                 </div>
                 <div class="p-4 transition-shadow border rounded-lg shadow-sm hover:shadow-lg">
                     <div class="flex items-start justify-between">
                         <div class="flex flex-col space-y-2">
                             <span class="text-gray-400">Total Disetujui</span>
-                            <span class="text-lg font-semibold"> {{ $token_acc }} Token</span>
+                            <span class="text-lg font-semibold"> {{ $token_acc }} Request</span>
                         </div>
                         <div class="p-10 bg-gray-200 rounded-md"></div>
                     </div>
                     <div>
                         <span class="inline-block px-2 text-sm text-white bg-green-300 rounded"> 
-                           @if ( $own_token > 0 )
-                              {{ round((float)($token_acc/$own_token) * 100 ) . '%' }} 
+                           @if ( $total_request > 0 )
+                              {{ round((float)($token_acc/$total_request) * 100 ) . '%' }} 
                            @else
                               {{ round((float)($token_acc/1) * 100 ) . '%' }} 
                            @endif
                         </span>
-                        <span>dari {{ $own_token }}</span>
+                        <span>dari {{ $total_request }}</span>
                     </div>
                 </div>
                 <div class="p-4 transition-shadow border rounded-lg shadow-sm hover:shadow-lg">
                     <div class="flex items-start justify-between">
                         <div class="flex flex-col space-y-2">
                             <span class="text-gray-400">Total Ditolak</span>
-                            <span class="text-lg font-semibold"> {{ $token_deny }} Token</span>
+                            <span class="text-lg font-semibold"> {{ $token_deny }} Request</span>
                         </div>
                         <div class="p-10 bg-gray-200 rounded-md"></div>
                     </div>
                     <div>
                         <span class="inline-block px-2 text-sm text-white bg-red-300 rounded"> 
-                           @if ( $own_token > 0 )
-                              {{ round((float)($token_deny/$own_token) * 100 ) . '%' }} 
+                           @if ( $total_request > 0 )
+                              {{ round((float)($token_deny/$total_request) * 100 ) . '%' }} 
                            @else
                               {{ round((float)($token_deny/1) * 100 ) . '%' }} 
                            @endif
                         </span>
-                        <span>dari {{ $own_token }}</span>
+                        <span>dari {{ $total_request }}</span>
                     </div>
                 </div>
                 <div class="p-4 transition-shadow border rounded-lg shadow-sm hover:shadow-lg">
@@ -151,7 +152,7 @@
                                        </td>
                                        <td class="px-6 py-4 whitespace-nowrap">
                                           {{-- <button class="px-2 py-1 bg-purple-400 text-sm rounded-md text-white" onclick="copy( {{ $row['token_code'] }} )">Copy</button> --}}
-                                          <a href=" /narasumber/{{$row['id']}}/detail " class="px-2 py-1 bg-blue-400 text-sm rounded-md text-white">Detail</a>
+                                          <a href=" /token/{{$row['id']}} " class="px-2 py-1 bg-blue-400 text-sm rounded-md text-white">Detail</a>
                                           {{-- <button class="px-2 py-1 bg-red-400 text-sm rounded-md text-white">Hapus</button> --}}
                                        </td>
                                     </tr>
