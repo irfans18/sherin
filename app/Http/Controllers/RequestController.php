@@ -11,12 +11,14 @@ class RequestController extends Controller
       // dd($token_id, $id);
       $req = ModelsRequest::find($id);
       $req->update(['status' => 1]);
-      return redirect('/narasumber/'. $token_id . '/detail');
+      // return redirect('/narasumber/'. $token_id . '/detail');
+      return redirect()->back();
    }
    
    public function deny($token_id, $id){
       $req = ModelsRequest::find($id);
       $req->update(['status' => 2]);
-      return redirect('/narasumber/'. $token_id . '/detail');
+      // return redirect('/narasumber/'. $token_id . '/detail');
+      return redirect()->back();
    }
 }
