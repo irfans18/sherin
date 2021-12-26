@@ -93,7 +93,7 @@
                                     <thead class="bg-gray-50">
                                         <tr>
                                             <th scope="col"
-                                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                                class="px-3 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                                                 No
                                             </th>
                                             <th scope="col"
@@ -115,84 +115,57 @@
 
                                         </tr>
                                     </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
-                                       @foreach ($requests as $row)
-                                       
-                                       <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
-                                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">1</td>
-                                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                             {{ $row['username'] }}
-                                          </td>
-                                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                             {{ ( new DateTime($row['created_at']) )->format('Y-m-d H:i:s') }}
-                                          </td>
-                                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                             <span
-                                                class="inline-flex px-2 text-xs font-semibold leading-5 rounded-full
-                                                @if ($row['status'] == 0)
-                                                text-yellow-800 bg-yellow-100 
-                                                @elseif ($row['status'] == 1)
-                                                 text-green-800 bg-green-100 
-                                                @else
-                                                 text-red-800 bg-red-100 
-                                                @endif
-                                                ">
-                                                {{ $row['status_name'] }}
-                                             </span>
-                                          </td>
-                                          @if ($row['status'] > 0)
-                                             <td class="px-6 py-4 whitespace-nowrap">-</td>
-                                          @else
-                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <a href="/narasumber/{{ $row['token_id'] }}/accept/{{ $row['id'] }}"
-                                                class="px-2 py-1 bg-green-400 text-sm rounded-md text-white">Terima</a>
-                                                
-                                                <a href="/narasumber/{{ $row['token_id'] }}/deny/{{ $row['id'] }}"
-                                                class="px-2 py-1 bg-red-400 text-sm rounded-md text-white">Tolak</a>
-                                             </td>
-                                          @endif
+                                    @isset($requests)
+                                       <tbody class="bg-white divide-y divide-gray-200">
+                                          @php
+                                                $count = 0;
+                                          @endphp
+                                          @foreach ($requests as $row)
+                                             @php  
+                                                $count++;
+                                             @endphp
                                           
-                                       </tr>
-                                    @endforeach
-
-
-                                          {{-- <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">2</td>
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                Web Petikdua</td>
-                                                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">19:30 - 24
-                                                   Desember 2021</td>
-                                                   <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                      <span
-                                                      class="inline-flex px-2 text-xs font-semibold leading-5 text-yellow-800 bg-yellow-100 rounded-full">
-                                                      Menunggu
+                                             <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                                                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                   {{ $count++}}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                   {{ $row['username'] }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                   {{ ( new DateTime($row['created_at']) )->format('d F Y, h:i:s A') }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                   <span
+                                                      class="inline-flex px-2 text-xs font-semibold leading-5 rounded-full
+                                                      @if ($row['status'] == 0)
+                                                      text-yellow-800 bg-yellow-100 
+                                                      @elseif ($row['status'] == 1)
+                                                      text-green-800 bg-green-100 
+                                                      @else
+                                                      text-red-800 bg-red-100 
+                                                      @endif
+                                                      ">
+                                                      {{ $row['status_name'] }}
                                                    </span>
                                                 </td>
-                                             <td class="px-6 py-4 whitespace-nowrap">
+                                                @if ($row['status'] > 0)
+                                                   <td class="px-6 py-4 whitespace-nowrap">-</td>
+                                                @else
+                                                   <td class="px-6 py-4 whitespace-nowrap">
+                                                      <a href="/narasumber/{{ $row['token_id'] }}/accept/{{ $row['id'] }}"
+                                                      class="px-2 py-1 bg-green-400 text-sm rounded-md text-white">Terima</a>
+                                                      
+                                                      <a href="/narasumber/{{ $row['token_id'] }}/deny/{{ $row['id'] }}"
+                                                      class="px-2 py-1 bg-red-400 text-sm rounded-md text-white">Tolak</a>
+                                                   </td>
+                                                @endif
+                                                
+                                             </tr>
+                                          @endforeach
+                                       </tbody>
+                                    @endisset
 
-                                                <button
-                                                      class="px-2 py-1 bg-green-400 text-sm rounded-md text-white">Terima</button>
-                                                <button
-                                                      class="px-2 py-1 bg-red-400 text-sm rounded-md text-white">Tolak</button>
-                                             </td>
-                                          </tr>
-                                          <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">3</td>
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                Web Petiktiga</td>
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">19:30 - 24
-                                                Desember 2021</td>
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                <span
-                                                      class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
-                                                      Ditolak
-                                                </span>
-                                             </td>
-                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                -
-                                             </td>
-                                          </tr> --}}
-                                    </tbody>
                                 </table>
                             </div>
                         </div>

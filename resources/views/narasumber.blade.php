@@ -116,7 +116,7 @@
                                         </th>
                                         <th scope="col"
                                             class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                                            Waktu Dibuat
+                                            Waktu Kadaluarsa
                                         </th>
                                         <th scope="col"
                                             class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
@@ -125,6 +125,8 @@
 
                                     </tr>
                                 </thead>
+                                @isset($token)
+                                    
                                 <tbody class="bg-white divide-y divide-gray-200">
                                    @php
                                        $count = 0;
@@ -144,7 +146,7 @@
                                           {{ $row['requests'] }}
                                        </td>
                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                          {{ ( new DateTime($row['created_at']) )->format('Y-m-d H:i:s') }}
+                                          {{ ( new DateTime($row['expired_time']) )->format('D d M, h:i A') }}
 
                                        </td>
                                        <td class="px-6 py-4 whitespace-nowrap">
@@ -183,6 +185,8 @@
                                         </td>
                                     </tr> --}}
                                 </tbody>
+                                @endisset
+
                             </table>
                         </div>
                     </div>
