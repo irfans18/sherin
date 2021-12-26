@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/narasumber', [TokenController::class, 'generate']);
 
 Route::get('/', function () {
-   //  return view('landing');
-    return view('welcome');
+    return view('landing');
+   //  return view('welcome');
 });
 
 Route::get('/peserta', [PesertaController::class, 'index']);
