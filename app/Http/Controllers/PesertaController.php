@@ -34,6 +34,7 @@ class PesertaController extends Controller
    public function submitToken(Request $request){
       $token_code = $request->token_code;
       $token = Token::where('token_code', $token_code)->first();
+      
       if($token != null){
          $token = $token->toArray();
       
@@ -49,7 +50,7 @@ class PesertaController extends Controller
          $submit->save();
          // dd($submit);
       }
-      return redirect('/peserta');
+      return redirect()->back();
       
    }
 
@@ -80,10 +81,10 @@ class PesertaController extends Controller
                ->Join('requests','tokens.id','=','requests.token_id')
                ->Join('users','tokens.user_id','=','users.id')
                ->where('requests.user_id', $user_id)
-               ->get();
-      if($all_request != null){
-         $all_request = $all_request->toArray();
-      }
+               ->get()->toArray();
+      // if($all_request != null){
+      //    $all_request = $all_request->toArray();
+      // }
       
       // dd($all_request);
       return $all_request;
@@ -116,7 +117,6 @@ class PesertaController extends Controller
          return 0;
       }
 
-      // dd($req);
    }
 
    private function getGroupName($username){

@@ -21,24 +21,18 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/narasumber', [TokenController::class, 'generate']);
 
 Route::get('/', function () {
-    return view('landing');
+   //  return view('landing');
+    return view('welcome');
 });
 
-Route::get('/peserta', function () {
-   return view('peserta');
-});
 Route::get('/peserta', [PesertaController::class, 'index']);
 Route::post('/peserta', [PesertaController::class, 'submitToken'])->name('submit-token');
 
 Route::get('/narasumber', [NarasumberController::class, 'index']);
-Route::get('narasumber/generate-token', [TokenController::class, 'generate'])->name('generate-token');
-Route::get('/narasumber/{id}/detail', [NarasumberController::class, 'getTokenDetail']);
+Route::get('/narasumber/generate-token', [TokenController::class, 'generate'])->name('generate-token');
+Route::get('/token/{id}', [NarasumberController::class, 'getTokenDetail']);
 Route::get('/narasumber/{token_id}/accept/{id}', [RequestController::class, 'accept']);
 Route::get('/narasumber/{token_id}/deny/{id}', [RequestController::class, 'deny']);
-
-// Route::get('/narasumber-token-detail', function () {
-//     return view('narasumber-token-detail');
-// });
 
 Route::get('/admin', function () {
     return view('admin');
@@ -60,11 +54,11 @@ Route::get('/admin-detail-kelompok', function () {
     return view('admin-detail-kelompok');
 })->name('admin-detail-kelompok');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
-// Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 
 require __DIR__ . '/auth.php';

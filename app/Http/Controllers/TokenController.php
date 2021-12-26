@@ -26,7 +26,8 @@ class TokenController extends Controller
       ]);
       $token->save();
       // dd($token);
-      return redirect('/narasumber');
+      // return redirect('/narasumber');
+      return redirect()->back();
    }
 
    private function setExpiredTime($minutes_to_add = 15)
