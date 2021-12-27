@@ -7,6 +7,9 @@
       
       <title> {{ env('APP_NAME') }} </title>
    
+      <!-- Favicon -->
+      <link rel="icon" href="{{ URL::asset('assets/logo/dynamic.png') }}" type="image/x-icon"/>
+
       <style>
          .bg-ob{
             background-image: url('assets/bg.png');
