@@ -22,8 +22,9 @@ class ListPesertaPageController extends Controller
       ]);
    }
 
+  
    public function delete($id){
-      $member = GroupMember::where('user_id', $id);
+      $member = User::find($id);
       $member->delete();
       return redirect()->back();
    }
@@ -83,13 +84,16 @@ class ListPesertaPageController extends Controller
 
       foreach ($peserta as $item){
          foreach ($members as $member){
+            array_push($result, $item);
             if ($item['id'] == $member['user_id']){
-               array_push($result, $item);
                $result[$i]['group'] = $member['group_id'];
+            }else{
+               $result[$i]['group'] = null;
             }
          }
          $i++;
       }
+      // dd($result);
 
       for ($i=0; $i<count($result); $i++){
          foreach ($groups as $group){
@@ -115,7 +119,9 @@ class ListPesertaPageController extends Controller
       $query = User::where('role', 0)->get()->toArray();
       $result = $this->getGroupName($query);
       $result = $this->getUserRequest($result);
+      // dd($result);
       $result = $this->getApprovedToken($result);
+
       return $result;
    }
 
