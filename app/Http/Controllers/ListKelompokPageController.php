@@ -9,8 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class ListKelompokPageController extends Controller
 {
+
    public function index()
    {
+      // if(Auth::user()->role != 2) return redirect()->back();
+
       $username = $this->getUsername();
       $group = $this->getGroup();
       return view('list-kelompok', [

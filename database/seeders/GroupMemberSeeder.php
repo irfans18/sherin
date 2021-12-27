@@ -15,7 +15,7 @@ class GroupMemberSeeder extends Seeder
    public function run()
    {
       GroupMember::create([
-         'user_id' => 3,
+         'user_id' => 4,
          'group_id' => 1,
       ]);
    }

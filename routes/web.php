@@ -49,6 +49,7 @@ Route::get('/dashboard/narasumber', [ListNarasumberPageController::class, 'index
 Route::get('/dashboard/kelompok', [ListKelompokPageController::class, 'index'])->name('list-kelompok');
 
 Route::get('/dashboard/kelompok/{id}', [ListAnggotaPageController::class, 'index'])->name('list-anggota');
+Route::get('/dashboard/kelompok/{group_id}/{id}', [ListAnggotaPageController::class, 'delete'])->name('delete-anggota');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
