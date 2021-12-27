@@ -9,6 +9,7 @@ use App\Http\Controllers\RequestController;
 use App\Http\Controllers\AdminPageController;
 use App\Http\Controllers\NarasumberController;
 use App\Http\Controllers\ListAnggotaPageController;
+use App\Http\Controllers\ListKelompokPageController;
 use App\Http\Controllers\ListPesertaPageController;
 use App\Http\Controllers\ListNarasumberPageController;
 
@@ -45,17 +46,9 @@ Route::get('/dashboard/peserta/{id}', [ListPesertaPageController::class, 'delete
 
 Route::get('/dashboard/narasumber', [ListNarasumberPageController::class, 'index'])->name('list-narasumber');
 
-// Route::get('/admin-peserta', function () {
-//     return view('admin-peserta');
-// })->name('admin-peserta');
+Route::get('/dashboard/kelompok', [ListKelompokPageController::class, 'index'])->name('list-kelompok');
 
-Route::get('/dashboard/kelompok', function () {
-    return view('list-kelompok');
-})->name('list-kelompok');
-
-Route::get('/admin-detail-kelompok', function () {
-    return view('admin-detail-kelompok');
-})->name('admin-detail-kelompok');
+Route::get('/dashboard/kelompok/{id}', [ListAnggotaPageController::class, 'index'])->name('list-anggota');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

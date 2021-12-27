@@ -1,9 +1,7 @@
-<?php ?>
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('ADMIN - Alfian Prisma Yopiangga') }}
+            {{ __('ADMIN - ' . $username) }}
         </h2>
     </x-slot>
 
@@ -20,10 +18,6 @@
                                         <th scope="col"
                                             class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                                             No
-                                        </th>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                                            Nomor Kelompok
                                         </th>
                                         <th scope="col"
                                             class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
@@ -47,30 +41,49 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">1</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">001</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Satria Baja Hitam</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">10</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Alfian Prisma Yopiangga</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Web Petikdua</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <button class="px-2 py-1 bg-blue-400 text-sm rounded-md text-white">Detail</button>
-                                        </td>
-                                    </tr>
-                                    <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">2</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">002</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Satria Baja Hitam 2</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">10</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Alfian Prisma Yopiangga 2</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Web Petikdua 2</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <button class="px-2 py-1 bg-blue-400 text-sm rounded-md text-white">Detail</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                 @isset($group)
+                                    @php
+                                       $count = 1;
+                                    @endphp
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                       @foreach ($group as $row)
+                                          <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $count++ }}
+                                             </td>
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $row['name'] }}
+                                             </td>
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $row['member'] }}
+                                             </td>
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $row['kambing1'] }}
+                                             </td>
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $row['kambing2'] }}
+                                             </td>
+                                             <td class="px-6 py-4 whitespace-nowrap">
+                                                <a class="px-2 py-1 bg-blue-400 text-sm rounded-md text-white"
+                                                   href="/dashboard/kelompok/{{ $row['id'] }}">Detail</a>
+                                             </td>
+                                          </tr>
+
+                                       {{-- <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">2</td>
+                                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">002</td>
+                                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Satria Baja Hitam 2</td>
+                                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">10</td>
+                                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Alfian Prisma Yopiangga 2</td>
+                                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Web Petikdua 2</td>
+                                          <td class="px-6 py-4 whitespace-nowrap">
+                                             <button class="px-2 py-1 bg-blue-400 text-sm rounded-md text-white">Detail</button>
+                                          </td>
+                                       </tr> --}}
+                                       @endforeach
+                                    </tbody>
+                                 @endisset
+
                             </table>
                         </div>
                     </div>
