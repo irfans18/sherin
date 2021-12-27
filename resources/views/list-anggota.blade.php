@@ -3,7 +3,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('ADMIN - Alfian Prisma Yopiangga') }}
+            {{ __('ADMIN - ' . $username) }}
         </h2>
     </x-slot>
 
@@ -11,7 +11,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h3 class="mt-6 text-xl">Daftar Anggota Kelompok
                 <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                    Satria Baja Hitam
+                    {{ $group['name'] }}
                 </span>
             </h3>
             <div class="flex flex-col mt-6">
@@ -43,32 +43,47 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">1</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">3120600001</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Alfian Prisma
-                                            Yopiangga</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                            yopiangga@email.com</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <button
-                                                class="px-2 py-1 bg-red-400 text-sm rounded-md text-white">Hapus</button>
-                                        </td>
-                                    </tr>
-                                    <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">2</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">3120600002</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Alfian Prisma
-                                            Yopiangga 2</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                            yopiangga2@email.com</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <button
-                                                class="px-2 py-1 bg-red-400 text-sm rounded-md text-white">Hapus</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                 @isset($member)
+                                    @php
+                                       $count = 1;
+                                    @endphp
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                       @foreach ($member as $row)
+                                          <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $count++ }}
+                                             </td>
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $row['nrp']}}
+                                             </td>
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $row['name']}}
+                                             </td>
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $row['email']}}
+                                             </td>
+                                             <td class="px-6 py-4 whitespace-nowrap">
+                                                <a class="px-2 py-1 bg-red-400 text-sm rounded-md text-white"
+                                                   href='/dashboard/kelompok/{{ $group['id'] }}/{{ $row['id'] }}'>Hapus</a>
+                                             </td>
+                                          </tr>
+                                          
+                                          {{-- <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">2</td>
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">3120600002</td>
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Alfian Prisma
+                                                Yopiangga 2</td>
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                yopiangga2@email.com</td>
+                                             <td class="px-6 py-4 whitespace-nowrap">
+                                                <button
+                                                      class="px-2 py-1 bg-red-400 text-sm rounded-md text-white">Hapus</button>
+                                             </td>
+                                          </tr> --}}
+                                       @endforeach
+                                    </tbody>
+                                 @endisset
+
                             </table>
                         </div>
                     </div>

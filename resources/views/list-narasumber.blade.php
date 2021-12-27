@@ -3,7 +3,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('ADMIN - Alfian Prisma Yopiangga') }}
+            {{ __('ADMIN - ' . $username) }}
         </h2>
     </x-slot>
 
@@ -31,19 +31,33 @@
                                         </th>
                                         <th scope="col"
                                             class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                                            Jumlah Token Dibuat
+                                            Jumlah Token
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">1</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Alfian Prisma Yopiangga</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">yopiangga@email.com</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">12</td>
-                                    </tr>
-                                    
-                                </tbody>
+                                 @isset($narasumber)
+                                    @php
+                                       $count = 1;
+                                    @endphp
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                       @foreach ($narasumber as $row)
+                                          <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $count++ }}
+                                             </td>
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $row['name'] }}
+                                             </td>
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $row['email'] }}
+                                             </td>
+                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $row['token'] }}
+                                             </td>
+                                          </tr>
+                                       @endforeach
+                                    </tbody>
+                                 @endisset
                             </table>
                         </div>
                     </div>
