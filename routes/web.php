@@ -42,17 +42,17 @@ Route::get('/admin', [AdminPageController::class, 'index'])->name('admin');
 Route::get('/dashboard/peserta', [ListPesertaPageController::class, 'index'])->name('list-peserta');
 Route::get('/dashboard/peserta/{id}', [ListPesertaPageController::class, 'delete'])->name('delete-member');
 
-Route::get('/admin-narasumber', function () {
-    return view('admin-narasumber');
-})->name('admin-narasumber');
+Route::get('/dashboard/narasumber', function () {
+    return view('list-narasumber');
+})->name('list-narasumber');
 
 // Route::get('/admin-peserta', function () {
 //     return view('admin-peserta');
 // })->name('admin-peserta');
 
-Route::get('/admin-kelompok', function () {
-    return view('admin-kelompok');
-})->name('admin-kelompok');
+Route::get('/dashboard/kelompok', function () {
+    return view('list-kelompok');
+})->name('list-kelompok');
 
 Route::get('/admin-detail-kelompok', function () {
     return view('admin-detail-kelompok');

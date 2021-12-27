@@ -24,12 +24,12 @@
                      </x-nav-link>
                   </div>
                   <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                     <x-nav-link :href="route('admin-narasumber')" :active="request()->routeIs('admin-narasumber')">
+                     <x-nav-link :href="route('list-narasumber')" :active="request()->routeIs('list-narasumber')">
                            {{ __('Narasumber') }}
                      </x-nav-link>
                   </div>
                   <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                     <x-nav-link :href="route('admin-kelompok')" :active="request()->routeIs('admin-kelompok')">
+                     <x-nav-link :href="route('list-kelompok')" :active="request()->routeIs('list-kelompok')">
                            {{ __('Kelompok') }}
                      </x-nav-link>
                   </div>
