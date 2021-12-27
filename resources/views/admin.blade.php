@@ -3,7 +3,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('ADMIN - Alfian Prisma Yopiangga') }}
+            {{ __('ADMIN') }}
         </h2>
     </x-slot>
 
@@ -14,52 +14,102 @@
                     <div class="flex items-start justify-between">
                         <div class="flex flex-col space-y-2">
                             <span class="text-gray-400">Total Peserta</span>
-                            <span class="text-lg font-semibold">10 Peserta</span>
+                            <span class="text-lg font-semibold"> {{ $user['peserta'] }} Peserta</span>
                         </div>
                         <div class="p-10 bg-gray-200 rounded-md"></div>
                     </div>
                     <div>
-                        <span class="inline-block px-2 text-sm text-white bg-green-300 rounded">50%</span>
-                        <span>dari 20 Pengguna</span>
+                        <span class="inline-block px-2 text-sm text-white bg-green-300 rounded">
+                           @if ( $user['total'] > 0 )
+                              {{ round((float)($user['peserta']/$user['total']) * 100 ) . '%' }} 
+                           @else
+                              {{ round((float)($user['peserta']/1) * 100 ) . '%' }} 
+                           @endif   
+                        </span>
+                        <span>dari {{ $user['total'] }} Pengguna</span>
                     </div>
                 </div>
                 <div class="p-4 transition-shadow border rounded-lg shadow-sm hover:shadow-lg">
                     <div class="flex items-start justify-between">
                         <div class="flex flex-col space-y-2">
                             <span class="text-gray-400">Total Narasumber</span>
-                            <span class="text-lg font-semibold">5 Narasumber</span>
+                            <span class="text-lg font-semibold"> {{ $user['narasumber'] }} Narasumber</span>
                         </div>
                         <div class="p-10 bg-gray-200 rounded-md"></div>
                     </div>
                     <div>
-                        <span class="inline-block px-2 text-sm text-white bg-green-300 rounded">25%</span>
-                        <span>dari 20 pengguna</span>
+                     <span class="inline-block px-2 text-sm text-white bg-green-300 rounded">
+                        @if ( $user['total'] > 0 )
+                           {{ round((float)($user['narasumber']/$user['total']) * 100 ) . '%' }} 
+                        @else
+                           {{ round((float)($user['narasumber']/1) * 100 ) . '%' }} 
+                        @endif   
+                     </span>
+                     <span>dari {{ $user['total'] }} Pengguna</span>
                     </div>
                 </div>
                 <div class="p-4 transition-shadow border rounded-lg shadow-sm hover:shadow-lg">
                     <div class="flex items-start justify-between">
                         <div class="flex flex-col space-y-2">
                             <span class="text-gray-400">Total Token</span>
-                            <span class="text-lg font-semibold">10 Token</span>
+                            <span class="text-lg font-semibold"> {{ $token['total'] }} Token</span>
                         </div>
                         <div class="p-10 bg-gray-200 rounded-md"></div>
                     </div>
                     <div>
-                        <span class="inline-block px-2 text-sm text-white bg-green-300 rounded">2 token</span>
+                        <span class="inline-block px-2 text-sm text-white bg-green-300 rounded"> {{ $token['today'] }} token</span>
                         <span>dibuat hari ini</span>
                     </div>
                 </div>
                 <div class="p-4 transition-shadow border rounded-lg shadow-sm hover:shadow-lg">
                     <div class="flex items-start justify-between">
                         <div class="flex flex-col space-y-2">
-                            <span class="text-gray-400">Total Ditolak</span>
-                            <span class="text-lg font-semibold">2 Permintaan</span>
+                            <span class="text-gray-400">Total Request</span>
+                            <span class="text-lg font-semibold"> {{ $request['total'] }} Request</span>
                         </div>
                         <div class="p-10 bg-gray-200 rounded-md"></div>
                     </div>
                     <div>
-                        <span class="inline-block px-2 text-sm text-white bg-red-300 rounded">10%</span>
-                        <span>dari 20 Permintaan</span>
+                        <span class="inline-block px-2 text-sm text-white bg-green-300 rounded"> {{ $request['today'] }} Request</span>
+                        <span>dibuat hari ini</span>
+                    </div>
+                </div>
+                <div class="p-4 transition-shadow border rounded-lg shadow-sm hover:shadow-lg">
+                    <div class="flex items-start justify-between">
+                        <div class="flex flex-col space-y-2">
+                            <span class="text-gray-400">Request disetujui</span>
+                            <span class="text-lg font-semibold"> {{ $request['acc'] }} Permintaan</span>
+                        </div>
+                        <div class="p-10 bg-gray-200 rounded-md"></div>
+                    </div>
+                    <div>
+                        <span class="inline-block px-2 text-sm text-white bg-green-300 rounded">
+                           @if ( $request['total'] > 0 )
+                              {{ round((float)($request['acc']/$request['total']) * 100 ) . '%' }} 
+                           @else
+                              {{ round((float)($request['acc']/1) * 100 ) . '%' }} 
+                           @endif   
+                        </span>
+                        <span>dari {{ $request['total'] }} Permintaan</span>
+                    </div>
+                </div>
+                <div class="p-4 transition-shadow border rounded-lg shadow-sm hover:shadow-lg">
+                    <div class="flex items-start justify-between">
+                        <div class="flex flex-col space-y-2">
+                            <span class="text-gray-400">Request ditolak</span>
+                            <span class="text-lg font-semibold"> {{ $request['deny'] }} Permintaan</span>
+                        </div>
+                        <div class="p-10 bg-gray-200 rounded-md"></div>
+                    </div>
+                    <div>
+                        <span class="inline-block px-2 text-sm text-white bg-red-300 rounded">
+                           @if ( $request['total'] > 0 )
+                              {{ round((float)($request['deny']/$request['total']) * 100 ) . '%' }} 
+                           @else
+                              {{ round((float)($request['deny']/1) * 100 ) . '%' }} 
+                           @endif   
+                        </span>
+                        <span>dari {{ $request['total'] }} Permintaan</span>
                     </div>
                 </div>
             </div>

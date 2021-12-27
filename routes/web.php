@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NarasumberController;
 use App\Http\Controllers\PesertaController;
@@ -34,9 +35,7 @@ Route::get('/token/{id}', [NarasumberController::class, 'getTokenDetail']);
 Route::get('/narasumber/{token_id}/accept/{id}', [RequestController::class, 'accept']);
 Route::get('/narasumber/{token_id}/deny/{id}', [RequestController::class, 'deny']);
 
-Route::get('/admin', function () {
-    return view('admin');
-})->name('admin');
+Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
 Route::get('/admin-narasumber', function () {
     return view('admin-narasumber');
