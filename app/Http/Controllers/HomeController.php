@@ -15,7 +15,7 @@ class HomeController extends Controller
    public function __construct(){
       $this->narsum = new NarasumberController;
       $this->peserta = new PesertaController;
-      $this->admin = new AdminController;
+      $this->admin = new AdminPageController;
    }
 
    public function index()
@@ -31,6 +31,6 @@ class HomeController extends Controller
       }else{
          return redirect('landing');
       }
-
    }
+   
 }
