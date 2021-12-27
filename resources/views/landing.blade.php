@@ -46,23 +46,21 @@
 
                      @if (Route::has('register'))
                      <a class="text-white text-2xl bg-blue-700 rounded-full py-1 px-8 mx-3"
-                     href="{{ route('login') }}">Daftar</a>
+                     href="{{ route('register') }}">Daftar</a>
                      @endif
                   @endauth
                {{-- </div> --}}
          @endif
       </div>
 
-
-         
-         
-
       <div class="flex justify-center flex-nowrap my-6">
          <div class="px-6 max-h-24 bg-white rounded-full flex">
-            <img class="w-10 md:w-24 my-2 mr-2"
-            src="{{ url('assets/logo/pens.png') }}" alt="dynamic">
-            <img class="w-10 md:w-24 my-2 ml-2"
-            src="{{ url('assets/logo/himit.png') }}" alt="dynamic">
+            <a href="https://www.pens.ac.id/">
+               <img class="w-10 md:w-20 my-2 mr-2" src="{{ url('assets/logo/pens.png') }}" alt="pens">
+            </a>
+            <a href="https://himitpens.com/">
+               <img class="w-10 md:w-24 my-2 ml-2" src="{{ url('assets/logo/himit.png') }}" alt="himit">
+            </a>
          </div>
       </div>
       
