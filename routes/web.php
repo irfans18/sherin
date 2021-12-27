@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminPageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ListAnggotaPage;
+use App\Http\Controllers\ListAnggotaPageController;
+use App\Http\Controllers\ListPesertaPageController;
 use App\Http\Controllers\NarasumberController;
 use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\RequestController;
@@ -34,17 +38,17 @@ Route::get('/token/{id}', [NarasumberController::class, 'getTokenDetail']);
 Route::get('/narasumber/{token_id}/accept/{id}', [RequestController::class, 'accept']);
 Route::get('/narasumber/{token_id}/deny/{id}', [RequestController::class, 'deny']);
 
-Route::get('/admin', function () {
-    return view('admin');
-})->name('admin');
+Route::get('/admin', [AdminPageController::class, 'index'])->name('admin');
+Route::get('/dashboard/peserta', [ListPesertaPageController::class, 'index'])->name('list-peserta');
+Route::get('/dashboard/peserta/{id}', [ListPesertaPageController::class, 'delete'])->name('delete-member');
 
 Route::get('/admin-narasumber', function () {
     return view('admin-narasumber');
 })->name('admin-narasumber');
 
-Route::get('/admin-peserta', function () {
-    return view('admin-peserta');
-})->name('admin-peserta');
+// Route::get('/admin-peserta', function () {
+//     return view('admin-peserta');
+// })->name('admin-peserta');
 
 Route::get('/admin-kelompok', function () {
     return view('admin-kelompok');

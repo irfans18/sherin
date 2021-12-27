@@ -19,7 +19,7 @@
                 
                 @if (Auth::user()->role == 2)
                   <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                     <x-nav-link :href="route('admin-peserta')" :active="request()->routeIs('admin-peserta')">
+                     <x-nav-link :href="route('list-peserta')" :active="request()->routeIs('list-peserta')">
                            {{ __('Peserta') }}
                      </x-nav-link>
                   </div>

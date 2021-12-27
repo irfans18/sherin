@@ -12,11 +12,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Request as ModelsRequest;
 use PhpParser\Node\Expr\AssignOp\Mod;
 
+
 class PesertaController extends Controller
 {
    public function index(){
       $username = $this->getUsername();
-      $group_name = $this->getGroupName($username);
+      $group_name = $this->getGroupName();
       $requests = $this->getAllRequests();
       $token_acc = $this->countApprovedToken($requests);
       $token_deny = $this->countDeniedToken($requests);
@@ -40,15 +41,12 @@ class PesertaController extends Controller
       
          $token_id = $token['id'];
          $status = $this->setStatus($token);
-         // dd($status);
-         // $this->isCreated($token_id);
          $submit = ModelsRequest::firstOrCreate([
                'user_id' => Auth::user()->id,
                'token_id' => $token_id,
                'status' => $status,
          ]);
          $submit->save();
-         // dd($submit);
       }
       return redirect()->back();
       
@@ -70,7 +68,6 @@ class PesertaController extends Controller
       foreach($req as $row){
          if($row->status == 1) $count++;
       }
-      // dd($count);
       return $count;
    }
 
@@ -82,11 +79,7 @@ class PesertaController extends Controller
                ->Join('users','tokens.user_id','=','users.id')
                ->where('requests.user_id', $user_id)
                ->get()->toArray();
-      // if($all_request != null){
-      //    $all_request = $all_request->toArray();
-      // }
       
-      // dd($all_request);
       return $all_request;
    }
 
@@ -119,14 +112,17 @@ class PesertaController extends Controller
 
    }
 
-   private function getGroupName($username){
-      $group_id = GroupMember::where('user_id', Auth::user()->id)->get()->toArray();
-      $group_id = $group_id[0]['group_id'];
-
-      $group = Group::find($group_id)->toArray();
-      
-      // dd($group);
-      return $group['name'];
+   private function getGroupName(){
+      $query = GroupMember::select('group_id')
+                  ->where('user_id', Auth::user()->id)->first();
+      if($query == NULL) {
+         return "Belum ada kelompok";
+      }else{
+         $group_id = $query->group_id;
+         $group = Group::find($group_id)->toArray();
+         
+         return $group['name'];
+      }
    }
 
    private function getUsername(){
