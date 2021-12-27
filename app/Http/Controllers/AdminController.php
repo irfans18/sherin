@@ -21,16 +21,15 @@ class AdminController extends Controller
 
    public function index(){
       // dd($this->users);
-      // $username = $this->getUsername();
+      $username = $this->getUsername();
       $user['peserta'] = $this->getPeserta();
       $user['narasumber'] = $this->getNarasumber();
       $user['total'] = $user['peserta'] + $user['narasumber'];
       $token = $this->getToken();
       $request = $this->getAllRequest();
-      // dd($peserta);
 
       return view('admin',[
-         // 'username' => $username,
+         'username' => $username,
          'user' => $user,
          'token' => $token,
          'request' => $request,
