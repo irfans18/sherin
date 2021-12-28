@@ -78,6 +78,7 @@ class PesertaController extends Controller
                ->Join('requests','tokens.id','=','requests.token_id')
                ->Join('users','tokens.user_id','=','users.id')
                ->where('requests.user_id', $user_id)
+               ->orderByDesc('requests.created_at')
                ->get()->toArray();
       
       return $all_request;
