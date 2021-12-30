@@ -83,17 +83,15 @@ class ListPesertaPageController extends Controller
       $i=0;
 
       foreach ($peserta as $item){
+         array_push($result, $item);
          foreach ($members as $member){
-            array_push($result, $item);
             if ($item['id'] == $member['user_id']){
                $result[$i]['group'] = $member['group_id'];
-            }else{
-               $result[$i]['group'] = null;
             }
          }
          $i++;
       }
-      // dd($result);
+      // dd($result, $peserta);
 
       for ($i=0; $i<count($result); $i++){
          foreach ($groups as $group){
