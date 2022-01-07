@@ -77,7 +77,14 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
-                                    <p class="text-xs md:text-sm pt-px">Token hanya dapat digunakan sekali</p>
+                                    <ul>
+                                       <li>
+                                          <p class="text-xs md:text-sm pt-px">Token hanya dapat digunakan sekali</p>
+                                       </li>
+                                       <li>
+                                          <p class="text-xs md:text-sm pt-px">Token akan kadaluarsa 30 menit</p>
+                                       </li>
+                                    </ul>
                                 </div>
                                 <div class="-mr-1">
                                     <button type='submit'

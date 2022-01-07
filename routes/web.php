@@ -31,31 +31,33 @@ Route::get('/', function () {
    //  return view('welcome');
 });
 
-Route::get('/peserta', [PesertaController::class, 'index']);
-Route::post('/peserta', [PesertaController::class, 'submitToken'])->name('submit-token');
+Route::middleware('admin')->group(function () {
+    Route::get('/admin', [AdminPageController::class, 'index'])->name('admin');
+    Route::get('/dashboard/peserta', [ListPesertaPageController::class, 'index'])->name('list-peserta');
+    Route::get('/dashboard/peserta/{id}', [ListPesertaPageController::class, 'delete'])->name('delete-member');
+    Route::get('/dashboard/narasumber', [ListNarasumberPageController::class, 'index'])->name('list-narasumber');
+    Route::get('/dashboard/kelompok', [ListKelompokPageController::class, 'index'])->name('list-kelompok');
+    Route::get('/dashboard/kelompok/{id}', [ListAnggotaPageController::class, 'index'])->name('list-anggota');
+    Route::get('/dashboard/kelompok/{group_id}/{id}', [ListAnggotaPageController::class, 'delete'])->name('delete-anggota');
+});
 
-Route::get('/narasumber', [NarasumberController::class, 'index']);
-Route::get('/narasumber/generate-token', [TokenController::class, 'generate'])->name('generate-token');
-Route::get('/token/{id}', [NarasumberController::class, 'getTokenDetail']);
-Route::get('/narasumber/{token_id}/accept/{id}', [RequestController::class, 'accept']);
-Route::get('/narasumber/{token_id}/deny/{id}', [RequestController::class, 'deny']);
+Route::middleware('narasumber')->group(function () {
+    Route::get('/narasumber', [NarasumberController::class, 'index']);
+    Route::get('/narasumber/generate-token', [TokenController::class, 'generate'])->name('generate-token');
+    Route::get('/token/{id}', [NarasumberController::class, 'getTokenDetail']);
+    Route::get('/narasumber/{token_id}/accept/{id}', [RequestController::class, 'accept']);
+    Route::get('/narasumber/{token_id}/deny/{id}', [RequestController::class, 'deny']);
+});
 
-Route::get('/admin', [AdminPageController::class, 'index'])->name('admin');
-Route::get('/dashboard/peserta', [ListPesertaPageController::class, 'index'])->name('list-peserta');
-Route::get('/dashboard/peserta/{id}', [ListPesertaPageController::class, 'delete'])->name('delete-member');
-
-Route::get('/dashboard/narasumber', [ListNarasumberPageController::class, 'index'])->name('list-narasumber');
-
-Route::get('/dashboard/kelompok', [ListKelompokPageController::class, 'index'])->name('list-kelompok');
-
-Route::get('/dashboard/kelompok/{id}', [ListAnggotaPageController::class, 'index'])->name('list-anggota');
-Route::get('/dashboard/kelompok/{group_id}/{id}', [ListAnggotaPageController::class, 'delete'])->name('delete-anggota');
+Route::middleware('peserta')->group(function () {
+    Route::get('/peserta', [PesertaController::class, 'index']);
+    Route::post('/peserta', [PesertaController::class, 'submitToken'])->name('submit-token');
+});
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');
 
 Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth'])->name('dashboard');
-
 
 require __DIR__ . '/auth.php';

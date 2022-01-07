@@ -93,6 +93,7 @@ class ListPesertaPageController extends Controller
 
       // dd($result);
 
+
       for ($i=0; $i<count($result); $i++){
          foreach ($groups as $group){
             if ($result[$i]['group'] == $group['id']){
