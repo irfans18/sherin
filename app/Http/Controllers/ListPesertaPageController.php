@@ -80,25 +80,25 @@ class ListPesertaPageController extends Controller
       $groups = $this->getAllGroups();
       $members = $this->getAllGroupMembers();
       $result = [];
-      $i=0;
 
-      foreach ($peserta as $item){
-         foreach ($members as $member){
-            array_push($result, $item);
-            if ($item['id'] == $member['user_id']){
-               $result[$i]['group'] = $member['group_id'];
-            }else{
-               $result[$i]['group'] = null;
+      for ($i=0; $i<count($peserta); $i++){
+         array_push($result, $peserta[$i]);
+         $result[$i]['group'] = 0;
+         for ($j=0; $j<count($members); $j++){
+            if ($result[$i]['id'] == $members[$j]['user_id']){
+               $result[$i]['group'] = $members[$j]['group_id'];
             }
          }
-         $i++;
       }
+
       // dd($result);
 
       for ($i=0; $i<count($result); $i++){
          foreach ($groups as $group){
             if ($result[$i]['group'] == $group['id']){
                $result[$i]['group'] = $group['name'];
+            }elseif ($result[$i]['group'] == 0){
+               $result[$i]['group'] = "dihapus dari kelompok";
             }
          }
       }
