@@ -77,6 +77,7 @@ class ListPesertaPageController extends Controller
    }
 
    private function getGroupName($peserta){
+      
       $groups = $this->getAllGroups();
       $members = $this->getAllGroupMembers();
 
@@ -128,5 +129,12 @@ class ListPesertaPageController extends Controller
 
    private function getUsername(){
       return Auth::user()->name;
+   }
+   public function peserta(){
+      $data = User::with('group')->get();
+      view()->share([
+         'data' => $data
+      ]);
+      return view('list-peserta');
    }
 }
