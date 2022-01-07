@@ -67,7 +67,7 @@
                                                 {{ $row->email }}
                                             </td>
                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                {{ $row->groupMember->count() }}
+                                                {{ $row->groupMember ? 'ada' : 'tidak' }}
                                             </td>
                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                 {{ $row->requests->count() }}
