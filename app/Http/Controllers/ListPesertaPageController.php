@@ -95,9 +95,9 @@ class ListPesertaPageController extends Controller
 
 
       for ($i=0; $i<count($result); $i++){
-         foreach ($groups as $group){
-            if ($result[$i]['group'] == $group['id']){
-               $result[$i]['group'] = $group['name'];
+         for ($j=0; $j<count($groups); $j++){
+            if ($result[$i]['group'] == $groups[$j]['id']){
+               $result[$i]['group'] = $groups[$j]['name'];
             }elseif ($result[$i]['group'] == 0){
                $result[$i]['group'] = "dihapus dari kelompok";
             }
