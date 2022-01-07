@@ -130,11 +130,12 @@ class ListPesertaPageController extends Controller
    private function getUsername(){
       return Auth::user()->name;
    }
+   
    public function peserta(){
-      $data = User::with('group')->get();
+      $data = User::where('role', User::PESERTA)->get();
       view()->share([
          'data' => $data
       ]);
-      return view('list-peserta');
+      return view('list-peserta2');
    }
 }
