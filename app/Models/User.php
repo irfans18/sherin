@@ -69,8 +69,13 @@ class User extends Authenticatable
         return $this->hasMany(Request::class);
     }
 
+    public function groupMember()
+    {
+        return $this->hasOne(GroupMember::class);
+    }
+
     public function group()
     {
-        return $this->hasOneThrough(Group::class, GroupMember::class);
+        return $this->groupMember->group();
     }
 }

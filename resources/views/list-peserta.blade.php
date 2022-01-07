@@ -51,70 +51,62 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                 @isset($peserta)
-                                    @php
-                                       $count = 0;
-                                    @endphp
-                                    <tbody class="bg-white divide-y divide-gray-200">
-                                       @foreach ($peserta as $row)
-                                          @php  
-                                             $count++;
-                                          @endphp
-                                          <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
-                                                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                   {{ $count }}
-                                                </td>
-                                                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                   {{ $row['nrp'] }}
-                                                </td>
-                                                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                   {{ $row['name'] }}
-                                                </td>
-                                                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                   {{ $row['email'] }}
-                                                </td>
-                                                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                   {{ $row['group'] }}
-                                                </td>
-                                                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                   {{ $row['requests'] }}
-                                                </td>
-                                                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                   {{ $row['requests_acc'] }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                   <a class="px-2 py-1 bg-red-400 text-sm rounded-md text-white"
-                                                      href="/dashboard/peserta/{{ $row['id'] }}">Hapus</a>
-                                                </td>
-                                          </tr>
-                                       @endforeach
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    @foreach ($peserta as $row)
+                                        <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $loop->iteration }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $row->nrp }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $row->name }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $row->email }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $row->group->name }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $row->requests->count() }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ $row->requests->where('status', App\Models\Request::ACCEPT)->count() }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <a class="px-2 py-1 bg-red-400 text-sm rounded-md text-white"
+                                                    href="/dashboard/peserta/{{ $row->id }}">Hapus</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
-                                       {{-- <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">2</td>
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">3120600002</td>
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Alfian Prisma Yopiangga 2</td>
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">yopiangga2@email.com</td>
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Satria Baja Hitam</td>
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">10</td>
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">8</td>
-                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <button class="px-2 py-1 bg-red-400 text-sm rounded-md text-white">Hapus</button>
-                                             </td>
-                                       </tr>
-                                       <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">3</td>
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">3120600003</td>
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Alfian Prisma Yopiangga 3</td>
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">yopiangga3@email.com</td>
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Satria Baja Hitam</td>
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">10</td>
-                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">8</td>
-                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <button class="px-2 py-1 bg-red-400 text-sm rounded-md text-white">Hapus</button>
-                                             </td>
-                                       </tr> --}}
-                                    </tbody>
-                                 @endisset
+                                    {{-- <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">2</td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">3120600002</td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Alfian Prisma Yopiangga 2</td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">yopiangga2@email.com</td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Satria Baja Hitam</td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">10</td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">8</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <button class="px-2 py-1 bg-red-400 text-sm rounded-md text-white">Hapus</button>
+                                            </td>
+                                    </tr>
+                                    <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">3</td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">3120600003</td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Alfian Prisma Yopiangga 3</td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">yopiangga3@email.com</td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">Satria Baja Hitam</td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">10</td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">8</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <button class="px-2 py-1 bg-red-400 text-sm rounded-md text-white">Hapus</button>
+                                            </td>
+                                    </tr> --}}
+                                </tbody>
 
                             </table>
                         </div>
