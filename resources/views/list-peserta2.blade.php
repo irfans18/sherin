@@ -108,7 +108,7 @@
                                              </td>
                                        </tr> --}}
                                     </tbody>
-                                 @endisset
+                                 
 
                             </table>
                         </div>

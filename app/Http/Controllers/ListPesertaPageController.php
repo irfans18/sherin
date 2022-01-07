@@ -80,31 +80,31 @@ class ListPesertaPageController extends Controller
       
       $groups = $this->getAllGroups();
       $members = $this->getAllGroupMembers();
-      $result = [];
+
+      for($i=0; $i < count($peserta); $i++){
+         $peserta[$i]['group'] = 0;
+      }
 
       for ($i=0; $i<count($peserta); $i++){
-         array_push($result, $peserta[$i]);
-         $result[$i]['group'] = 0;
          for ($j=0; $j<count($members); $j++){
-            if ($result[$i]['id'] == $members[$j]['user_id']){
-               $result[$i]['group'] = $members[$j]['group_id'];
+            if ($peserta[$i]['id'] == $members[$j]['user_id']){
+               $peserta[$i]['group'] = $members[$j]['group_id'];
             }
          }
       }
 
       // dd($result);
 
-
-      for ($i=0; $i<count($result); $i++){
+      for ($i=0; $i<count($peserta); $i++){
          for ($j=0; $j<count($groups); $j++){
-            if ($result[$i]['group'] == $groups[$j]['id']){
-               $result[$i]['group'] = $groups[$j]['name'];
-            }elseif ($result[$i]['group'] == 0){
-               $result[$i]['group'] = "dihapus dari kelompok";
+            if ($peserta[$i]['group'] == $groups[$j]['id']){
+               $peserta[$i]['group'] = $groups[$j]['name'];
+            }elseif ($peserta[$i]['group'] == 0){
+               $peserta[$i]['group'] = "dihapus dari kelompok";
             }
          }
       }
-      return $result;
+      return $peserta;
    }
 
    private function getAllGroupMembers(){
