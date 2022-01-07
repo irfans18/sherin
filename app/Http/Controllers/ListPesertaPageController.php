@@ -14,7 +14,7 @@ class ListPesertaPageController extends Controller
 {
    public function index(){
       $username = $this->getUsername();
-      $peserta = User::where('role', User::PESERTA)->get();
+      $peserta = User::has('GroupMember')->where('role', User::PESERTA)->get();
       // dd($peserta);
       return view('list-peserta',[
          'username' => $username,
