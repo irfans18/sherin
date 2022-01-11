@@ -20,14 +20,20 @@ class NarasumberSeeder extends Seeder
         $csvFile = fopen(__DIR__ . '/data/narasumber.csv', 'r');
 
         $isHeader = true;
-        while (($data = fgetcsv($csvFile, 1000, ",")) !== FALSE) {
-            if (!$isHeader && $narasumber->doesntContain('email', $data[1])) {
-                User::create([
-                    "name" => $data[0],
-                    "email" => $data[1],
-                    "role" => User::NARASUMBER,
-                    "password" => Hash::make($data[2]),
-                ]);
+        while (($data = fgetcsv($csvFile, 1000, ',')) !== FALSE) {
+            if (!$isHeader) {
+                if ($narasumber->doesntContain('email', $data[1])) {
+                    User::create([
+                        'name' => $data[0],
+                        'email' => $data[1],
+                        'role' => User::NARASUMBER,
+                        'password' => Hash::make($data[2]),
+                    ]);
+                } else {
+                    User::where('email', $data[1])->first()->update([
+                        'name' => $data[0]
+                    ]);
+                }
             }
             $isHeader = false;
         }
