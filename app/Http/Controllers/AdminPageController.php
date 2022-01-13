@@ -10,6 +10,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+Use Hash;
 
 class AdminPageController extends Controller
 {
@@ -103,5 +104,21 @@ class AdminPageController extends Controller
 
    private function getUsername(){
       return Auth::user()->name;
+   }
+
+   public function store(Request $request)
+   {
+      $data = new User;
+      $request->validate([
+         'name' => 'required',
+         'email' => 'required'
+      ]);
+
+      $data->name = $request->name;
+      $data->email = $request->email;
+      $data->password = Hash::make('Password');
+      $data->role = 1;
+      $data->save();
+      return redirect()->route('list-narasumber');
    }
 }

@@ -38,6 +38,7 @@ Route::get('/dashboard/narasumber/tambah-narasumber', function () {
 
 Route::middleware('admin')->group(function () {
     Route::get('/admin', [AdminPageController::class, 'index'])->name('admin');
+    Route::post('/store-new-narasumber', [AdminPageController::class, 'store'])->name('store-new-narsum');
     Route::get('/dashboard/peserta', [ListPesertaPageController::class, 'index'])->name('list-peserta');
     Route::get('/dashboard/peserta/{id}', [ListPesertaPageController::class, 'delete'])->name('delete-member');
     Route::get('/dashboard/narasumber', [ListNarasumberPageController::class, 'index'])->name('list-narasumber');
