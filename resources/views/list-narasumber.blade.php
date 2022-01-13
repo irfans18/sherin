@@ -9,7 +9,8 @@
 
     <div class="pb-12 pt-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h3 class="mt-6 text-xl">Daftar Narasumber</h3>
+            <h3 class="mt-6 mb-6 text-xl">Daftar Narasumber</h3>
+            <a class="px-4 py-2 bg-purple-400 text-sm rounded-md text-white" href="/dashboard/narasumber/tambah-narasumber">Tambah Narasumber</a>
             <div class="flex flex-col mt-6">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">

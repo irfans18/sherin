@@ -31,6 +31,11 @@ Route::get('/', function () {
    //  return view('welcome');
 });
 
+Route::get('/dashboard/narasumber/tambah-narasumber', function () {
+    return view('tambah-narasumber');
+   //  return view('welcome');
+});
+
 Route::middleware('admin')->group(function () {
     Route::get('/admin', [AdminPageController::class, 'index'])->name('admin');
     Route::get('/dashboard/peserta', [ListPesertaPageController::class, 'index'])->name('list-peserta');
