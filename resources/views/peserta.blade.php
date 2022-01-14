@@ -139,16 +139,13 @@
                                  @isset($requests)
                                  <tbody class="bg-white divide-y divide-gray-200">
                                     @php
-                                       $count = 0;
+                                       $count = 1;
                                     @endphp
                                     @foreach ($requests as $row)
-                                    @php  
-                                       $count++;
-                                    @endphp
                                        
                                        <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
                                           <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                             {{ $count }}
+                                             {{ $count++ }}
                                           </td>
                                           <td class="px-6 py-4 whitespace-nowrap">
                                              <div class="text-sm text-gray-900"> {{ $row->name }} </div>
